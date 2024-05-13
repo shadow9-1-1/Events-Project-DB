@@ -7,4 +7,8 @@
     <RootNamespace>Events_Project_DB</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>
