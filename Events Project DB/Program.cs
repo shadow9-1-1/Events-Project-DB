@@ -1,7 +1,10 @@
+using Events_Project_DB.Model;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSingleton<dbclass>();
 
 var app = builder.Build();
 

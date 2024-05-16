@@ -1,0 +1,63 @@
+﻿@page
+@model Events_Project_DB.Pages.loginModel
+@{
+}
+<br />
+<br />
+<br />
+
+
+<div class="center">
+
+    <form action="">
+    <div class="title">Login</div>
+    <span class="inputs">
+        <span class="inputf">
+        <input type="email" class="input" placeholder="Email" />
+        <span class="label">Email</span>
+        <span class="material-icons icon">email</span>
+        </span>
+        <span class="inputf">
+        <input type="password" class="input" placeholder="Password" />
+        <span class="label">Password</span>
+        <span class="material-icons icon">lock</span>
+
+        </span>
+    </span>
+    <div class="links">
+        <a href="#">Forgot Password</a>
+        <label for="remember">
+        <input type="checkbox" id="remember" />
+        Remember Me
+        </label>
+    </div>
+    <button type="button" class="btn">
+        <span>Login</span>
+        <div class="dots">
+        <div class="dot" style="--delay: 0s"></div>
+        <div class="dot" style="--delay: 0.25s"></div>
+        <div class="dot" style="--delay: 0.5s"></div>
+        </div>
+    </button>
+    <div class="text">
+        New user? Create an account <a href="#">Register</a>
+    </div>
+    </form>
+</div>
+<script>
+    var btn = document.querySelector(".btn");
+    var inputs = document.querySelectorAll(".input");
+    btn.onclick = function () {
+    btn.classList.toggle("active");
+    setTimeout(() => {
+        btn.classList.toggle("active");
+        inputs[1].classList.toggle("active");
+    }, 1500);
+    setTimeout(() => {
+        inputs[1].classList.toggle("active");
+    }, 3000);
+    };
+</script>
+<br />
+<br />
+<br />
