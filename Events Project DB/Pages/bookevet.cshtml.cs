@@ -1,11 +1,13 @@
 using Events_Project_DB.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 using System.Data;
+using System.Xml.Linq;
 
 namespace Events_Project_DB.Pages
 {
-    public class FeedbackModel : PageModel
+    public class bookevetModel : PageModel
     {
         private dbclass t1;
         public DataTable Table { get; set; }
@@ -14,14 +16,9 @@ namespace Events_Project_DB.Pages
         [BindProperty]
         public string Username1 { get; set; }
         [BindProperty]
-        public int rate { get; set; }
-        [BindProperty]
-        public string comment { get; set; }
-        [BindProperty]
-        public int eventid { get; set; }
-
+        public int Eventid { get; set; }
         public string output { get; set; }
-        public FeedbackModel(ILogger<FeedbackModel> logger, dbclass t1)
+        public bookevetModel(ILogger<bookevetModel> logger, dbclass t1)
         {
 
             this.t1 = t1;
@@ -29,17 +26,16 @@ namespace Events_Project_DB.Pages
         public void OnGet()
         {
             Username1 = t1.Username;
-            Table = t1.ShowFeedback();
-            Table1 = t1.GetEventsForUser(Username1);
+            Table = t1.ShowTable("Event");
+            
         }
-
         public IActionResult OnPostSubmit()
         {
 
             Username1 = t1.Username;
-            output = t1.AddFeedback(Username1, eventid, rate, comment);
+            output = t1.BookEvent(Username1, Eventid);
             return RedirectToPage("/Userpage");
-            
+
         }
     }
 }

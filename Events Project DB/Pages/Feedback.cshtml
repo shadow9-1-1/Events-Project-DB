@@ -30,6 +30,99 @@
     </div>
 </div>
 <!-- Navbar & Hero End -->
+@if (Model.Username1 == null)
+{
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="booking p-5">
+                <div class="row g-5 align-items-center">
+                    <h1 class="text-white mb-4"></h1>
+                    <br />
+                    <br />
+                    <h1 class="text-white text-center mb-4">Please Login First</h1>
+                    <br />
+                    <br />
+
+                    <a class="btn btn-outline-light py-3 px-5 mt-2" href="login">Login</a>
+                    <br />
+                    <br />
+                    <h1 class="text-white mb-4"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <!-- Feedback Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="booking p-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-md-6 text-white">
+                        <h6 class="text-white text-uppercase">Feedback</h6>
+                        <h1 class="text-white mb-4">Give Use Your Feedback</h1>
+                        @* <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                        <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                         *@
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="text-white mb-4">Feedback</h1>
+                        <form method="post">
+                            @if (Model.Table1.Rows.Count== 0)
+                            {
+                                <h1 class="text-white text-center mb-4">You Didn't Book or attend any event please book event first </h1>
+                                <br />
+                                <a class="btn btn-outline-light py-3 px-5 mt-2 text-center" href="login">Login</a>
+                            }else{
+                                <div class="row g-3">
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select class="form-select bg-transparent" id="select1" asp-for="@Model.eventid" required>
+                                                <option selected>Open this select menu</option>
+                                                @for (int i = 0; i < @Model.Table1.Rows.Count; i++)
+                                                {
+                                                    <option value="@Model.Table1.Rows[i][0]">@Model.Table1.Rows[i][1]</option>
+                                                }
+                                                  
+                                            </select>
+                                            <label for="select1">Select Event</label>
+                                        </div>
+                                    </div>
+                                    
+                                
+                                
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control bg-transparent" id="rate" placeholder="Your rate" min="0" max="5" asp-for="@Model.rate" required>
+                                            <label for="rate">Your rate</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control bg-transparent" placeholder="Special Request" id="message" style="height: 100px" asp-for="@Model.comment" required></textarea>
+                                            <label for="message">comment</label>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="col-12">
+                                        <button asp-page-handler="submit" class="btn btn-outline-light w-100 py-3" type="submit">submit</button>
+                                    </div>
+                                </div>
+                            }
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Feedback Start -->
+}
+
 
 <!-- Feedback Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">

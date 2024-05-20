@@ -1,0 +1,106 @@
+﻿@page
+@model Events_Project_DB.Pages.bookevetModel
+@{
+    ViewData["Title"] = "Book Event";
+}
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+<!-- Navbar & Hero Start -->
+<div class="container-fluid position-relative p-0">
+
+    <div class="container-fluid bg-primary py-5 mb-5 hero-header">
+        <div class="container py-5">
+            <div class="row justify-content-center py-5">
+                <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Enjoy Your Event With Us</h1>
+                    <p class="fs-4 text-white mb-4 animated slideInDown">Where Every Event is an Adventure</p>
+                    <div class="position-relative w-75 mx-auto animated slideInDown">
+
+                        <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Search for event">
+                        <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Navbar & Hero End -->
+@if (Model.Username1 == null)
+{
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="booking p-5">
+                <div class="row g-5 align-items-center">
+                    <h1 class="text-white mb-4"></h1>
+                    <br />
+                    <br />
+                    <h1 class="text-white text-center mb-4">Please Login First</h1>
+                    <br />
+                    <br />
+
+                    <a class="btn btn-outline-light py-3 px-5 mt-2" href="login">Login</a>
+                    <br />
+                    <br />
+                    <h1 class="text-white mb-4"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else {
+    <!-- Book event Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="booking p-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-md-6 text-white">
+                        <h6 class="text-white text-uppercase">event ticket</h6>
+                        <h1 class="text-white mb-4">Book your ticket</h1>
+                        @* <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                    *@
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="text-white mb-4">Feedback</h1>
+                        <form method="post">
+                            
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <select class="form-select bg-transparent" id="select1" asp-for="@Model.Eventid" required>
+                                            <option selected>Open this select menu</option>
+                                            @for (int i = 0; i < @Model.Table.Rows.Count; i++)
+                                            {
+                                                <option value="@Model.Table.Rows[i][0]">@Model.Table.Rows[i][1]</option>
+                                            }
+                                        </select>
+                                        <label for="select1">Select Event</label>
+                                    </div>
+                                </div>
+
+
+
+                                
+
+
+
+                                <div class="col-12">
+                                    <button asp-page-handler="submit" class="btn btn-outline-light w-100 py-3" type="submit">Book Now</button>
+                                </div>
+                            </div>
+                            
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Feedback Start -->
+}

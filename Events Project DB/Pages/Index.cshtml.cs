@@ -18,6 +18,8 @@ namespace Events_Project_DB.Pages
 
         [BindProperty]
         public int EventID { get; set; }
+        [BindProperty]
+        public string eventSearch { get; set; }
         public IndexModel(ILogger<IndexModel> logger, dbclass t1)
         {
             _logger = logger;
@@ -29,6 +31,10 @@ namespace Events_Project_DB.Pages
             Table = t1.ShowEventWithPlace();
             Table1 = t1.ShowSpeaker();
             Table2 = t1.ShowFeedback();
+        }
+        public IActionResult OnPostSearch()
+        {
+            return RedirectToPage("/eventSearch", new { eventSearchName = eventSearch });
         }
     }
 }
