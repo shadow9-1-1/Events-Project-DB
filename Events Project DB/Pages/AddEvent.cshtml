@@ -1,0 +1,168 @@
+﻿@page
+@model Events_Project_DB.Pages.AddEventModel
+@{
+    ViewData["Title"] = "Add Event";
+}
+
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+
+<br />
+<br />
+<br />
+@if (!string.IsNullOrEmpty(Model.UserError))
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.UserError
+    </div>
+}
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="booking p-5">
+            <div class="row g-5 align-items-center">
+
+                @if (@Model.Username1 == null)
+                {
+
+                    <h1 class="text-white mb-4"></h1>
+                    <br />
+                    <br />
+                    <h1 class="text-white text-center mb-4">Please Login First</h1>
+                    <br />
+                    <br />
+
+                    <a class="btn btn-outline-light py-3 px-5 mt-2" href="loginAO">Login</a>
+                    <br />
+                    <br />
+                    <h1 class="text-white mb-4"></h1>
+
+                }
+                else
+                {
+                    <div class="col-md-6 text-white">
+                        @* <h6 class="text-white text-uppercase">Welcome</h6> *@
+                        <h1 class="text-white mb-4">Add Place</h1>
+                        @* <p class="mb-4">User name: @Model.Table.Rows[0][0]</p>
+                    <p class="mb-4">Email: @Model.Table.Rows[0][3]</p> *@
+                        @* <a class="btn btn-outline-light py-3 px-5 mt-2" href="">Read More</a> *@
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="text-white mb-4">Add Event</h1>
+                        <form method="post">
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control bg-transparent text-white" id="name" placeholder="Event name" asp-for="@Model.eventName" required>
+                                        <label class="text-white" for="name">Event Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control bg-transparent" id="con" placeholder="Event Description" asp-for="@Model.description" required>
+                                        <label class="text-white" for="con">Event Description</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="date" class="form-control bg-transparent text-white" id="Edate" placeholder="Event Date" asp-for="@Model.startDate" required>
+                                        <label class="text-white" for="Edate">Event Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control bg-transparent text-white" id="Edays" placeholder="Event Days" asp-for="@Model.days" required>
+                                        <label class="text-white" for="Edays">Event Days</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="time" class="form-control bg-transparent text-white" id="Etime" placeholder="Event Time" asp-for="@Model.time" required>
+                                        <label class="text-white" for="Etime">Event Time</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control bg-transparent text-white" id="Etime" placeholder="Event Price" asp-for="@Model.price" required>
+                                        <label class="text-white" for="Etime">Event Price</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control bg-transparent text-white" id="Eticket" placeholder="Event Tickets" asp-for="@Model.nAttendees" required>
+                                        <label class="text-white" for="Eticket">Event Ticket</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control bg-transparent text-white" id="Eimg" placeholder="Event Img" asp-for="@Model.img" required>
+                                        <label class="text-white" for="Eimg">Event Img</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <select class="form-select bg-transparent " id="select1" asp-for="@Model.speakerID" required>
+                                            <option selected>Open this select menu</option>
+                                            @for (int i = 0; i < @Model.Table1.Rows.Count; i++)
+                                            {
+                                                <option value="@Model.Table1.Rows[i][0]">@Model.Table1.Rows[i][1]</option>
+                                            }
+
+                                        </select>
+                                        <label class="text-white" for="select1">Event Speaker</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <select class="form-select bg-transparent" id="select1" asp-for="@Model.placeID" required>
+                                            <option selected>Open this select menu</option>
+                                            @for (int i = 0; i < @Model.Table2.Rows.Count; i++)
+                                            {
+                                                <option value="@Model.Table2.Rows[i][0]">@Model.Table2.Rows[i][1]</option>
+                                            }
+
+                                        </select>
+                                        <label class="text-white" for="select1">Event Place</label>
+                                    </div>
+                                @* </div><div class="col-12">
+                                    <div class="form-floating">
+                                        <select class="form-select bg-transparent" id="select1" asp-for="@Model.organizerUsername" required>
+                                            <option selected>Open this select menu</option>
+                                            @for (int i = 0; i < @Model.Table3.Rows.Count; i++)
+                                            {
+                                                <option value="@Model.Table3.Rows[i][0]">@Model.Table3.Rows[i][1]</option>
+                                            }
+
+                                        </select>
+                                        <label class="text-light" for="select1">Event Organizer</label>
+                                    </div>
+                                </div> *@
+
+
+
+
+
+
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <button asp-page-handler="submit" class="btn btn-outline-light w-100 py-3 mt-2">Add Event</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

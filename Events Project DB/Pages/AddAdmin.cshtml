@@ -1,8 +1,9 @@
 ﻿@page
-@model Events_Project_DB.Pages.AdminModel
+@model Events_Project_DB.Pages.AddAdminModel
 @{
-    ViewData["Title"] = "Admin";
+    ViewData["Title"] = "Add Admin";
 }
+
 <!-- Spinner Start -->
 <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -15,10 +16,17 @@
 <br />
 <br />
 <br />
+@if (!string.IsNullOrEmpty(Model.UserError))
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.UserError
+    </div>
+}
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
         <div class="booking p-5">
             <div class="row g-5 align-items-center">
+                
                 @if (@Model.Username1 == null)
                 {
 
@@ -30,7 +38,6 @@
                     <br />
 
                     <a class="btn btn-outline-light py-3 px-5 mt-2" href="loginAO">Login</a>
-                    <a class="btn btn-outline-light py-3 px-5 mt-2" href="Organizer">Or Back to Organizer Page</a>
                     <br />
                     <br />
                     <h1 class="text-white mb-4"></h1>
@@ -39,67 +46,53 @@
                 else
                 {
                     <div class="col-md-6 text-white">
-                        <h6 class="text-white text-uppercase">Welcome</h6>
-                        <h1 class="text-white mb-4">@Model.Table.Rows[0][2]</h1>
-                        <p class="mb-4">User name: @Model.Table.Rows[0][0]</p>
-                        <p class="mb-4">Email: @Model.Table.Rows[0][3]</p>
+                        @* <h6 class="text-white text-uppercase">Welcome</h6> *@
+                        <h1 class="text-white mb-4">Add Admin</h1>
+                        @* <p class="mb-4">User name: @Model.Table.Rows[0][0]</p>
+                        <p class="mb-4">Email: @Model.Table.Rows[0][3]</p> *@
                         @* <a class="btn btn-outline-light py-3 px-5 mt-2" href="">Read More</a> *@
                     </div>
                     <div class="col-md-6">
-                        <h1 class="text-white mb-4">Services</h1>
+                        <h1 class="text-white mb-4">Add Admin</h1>
                         <form method="post">
                             <div class="row g-3">
                                 <div class="col-12">
                                     <div class="form-floating">
-
-                                        <button asp-page-handler="submit" class="btn btn-outline-light w-100 py-3">Show All Table</button>
+                                        <input type="text" class="form-control bg-transparent" id="username" placeholder="Admin Username" asp-for="@Model.Username" required>
+                                        <label class="text-light" for="username">Admin Username</label>
+                                        <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                                        <span asp-validation-for="Username" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
 
-                                        <button asp-page-handler="submit1" class="btn btn-outline-light w-100 py-3">Add Admin</button>
+                                        <input type="password" class="form-control bg-transparent text-light" id="pass" placeholder="Admin Password" asp-for="@Model.Password" required>
+                                        <label class="text-light" for="pass">Admin Password</label>
+                                        <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-
-                                        <button asp-page-handler="submit2" class="btn btn-outline-light w-100 py-3">Add Organizer</button>
+                                        <input type="text" class="form-control bg-transparent" id="name" placeholder="Admin name" asp-for="@Model.Name" required>
+                                        <label class="text-light" for="name">Admin Name</label>
+                                        <span asp-validation-for="@Model.Name" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-
-                                        <button asp-page-handler="submit3" class="btn btn-outline-light w-100 py-3">Add Speaker</button>
+                                        <input type="email" class="form-control bg-transparent" id="mail" placeholder="Admin Email" asp-for="@Model.Email" required>
+                                        <label class="text-light" for="mail">Admin Email</label>
+                                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-
-                                        <button asp-page-handler="submit4" class="btn btn-outline-light w-100 py-3">Add Place</button>
+                                        <button asp-page-handler="submit" class="btn btn-outline-light w-100 py-3">Add Admin</button>
                                     </div>
                                 </div>
 
-                                @*
-                            <div class="col-md-6">
-                            <div class="form-floating">
-                            <select class="form-select bg-transparent" id="select1">
-                            <option value="1">Destination 1</option>
-                            <option value="2">Destination 2</option>
-                            <option value="3">Destination 3</option>
-                            </select>
-                            <label for="select1">Destination</label>
-                            </div>
-                            </div>
-                            <div class="col-12">
-                            <div class="form-floating">
-                            <textarea class="form-control bg-transparent" placeholder="Special Request" id="message" style="height: 100px"></textarea>
-                            <label for="message">Special Request</label>
-                            </div>
-                            </div>
-                            <div class="col-12">
-                            <button class="btn btn-outline-light w-100 py-3" type="submit">Book Now</button>
-                            </div> *@
+                               
                             </div>
                         </form>
                     </div>
@@ -109,3 +102,4 @@
         </div>
     </div>
 </div>
+

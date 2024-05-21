@@ -21,10 +21,35 @@ namespace Events_Project_DB.Pages
         public void OnGet()
         {
             Username1 = t1.AUsername;
-            Table = t1.ShowTable("Admin");
+            Table = t1.ShowAdminInfo(Username1);
 
 
         }
-        
+        public IActionResult OnPostSubmit()
+        {
+
+            return RedirectToPage("/AllTable");
+        }
+        public IActionResult OnPostSubmit1()
+        {
+
+            return RedirectToPage("/AddAdmin");
+        }
+        public IActionResult OnPostSubmit2()
+        {
+
+            return RedirectToPage("/AddOrganizer");
+        }
+        public IActionResult OnPostSubmit3()
+        {
+
+            return RedirectToPage("/AddSpeaker");
+        }
+        public IActionResult OnPostSubmit4()
+        {
+
+            return RedirectToPage("/AddPlace");
+        }
+
     }
 }

@@ -1,0 +1,100 @@
+﻿@page
+@model Events_Project_DB.Pages.AddSpeakerModel
+@{
+    ViewData["Title"] = "Add Speaker";
+}
+
+
+
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+
+<br />
+<br />
+<br />
+@if (!string.IsNullOrEmpty(Model.UserError))
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.UserError
+    </div>
+}
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="booking p-5">
+            <div class="row g-5 align-items-center">
+
+                @if (@Model.Username1 == null)
+                {
+
+                    <h1 class="text-white mb-4"></h1>
+                    <br />
+                    <br />
+                    <h1 class="text-white text-center mb-4">Please Login First</h1>
+                    <br />
+                    <br />
+
+                    <a class="btn btn-outline-light py-3 px-5 mt-2" href="loginAO">Login</a>
+                    <br />
+                    <br />
+                    <h1 class="text-white mb-4"></h1>
+
+                }
+                else
+                {
+                    <div class="col-md-6 text-white">
+                        @* <h6 class="text-white text-uppercase">Welcome</h6> *@
+                        <h1 class="text-white mb-4">Add Speaker</h1>
+                        @* <p class="mb-4">User name: @Model.Table.Rows[0][0]</p>
+                    <p class="mb-4">Email: @Model.Table.Rows[0][3]</p> *@
+                        @* <a class="btn btn-outline-light py-3 px-5 mt-2" href="">Read More</a> *@
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="text-white mb-4">Add Speaker</h1>
+                        <form method="post">
+                            <div class="row g-3">
+                                
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control bg-transparent" id="name" placeholder="Speaker name" asp-for="@Model.Name" required>
+                                        <label class="text-light" for="name">Speaker Name</label>
+                                        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control bg-transparent" id="des" placeholder="Speaker Email" asp-for="@Model.Description" required>
+                                        <label class="text-light" for="des">Speaker Email</label>
+                                        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control bg-transparent" id="img" placeholder="Speaker img" asp-for="@Model.img">
+                                        <label class="text-light" for="img">Speaker img</label>
+                                        <span asp-validation-for="@Model.img" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <button asp-page-handler="submit" class="btn btn-outline-light w-100 py-3">Add Speaker</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </form>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

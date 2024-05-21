@@ -154,6 +154,7 @@ namespace Events_Project_DB.Model
 
             try
             {
+
                 con.Open();
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@UserName", userName);
@@ -173,7 +174,6 @@ namespace Events_Project_DB.Model
 
             return userInfoTable;
         }
-
 
         public string SignUp(string userName, string password, string name, string email)
         {
@@ -251,7 +251,6 @@ namespace Events_Project_DB.Model
             return eventsTable;
         }
 
-
         public string UpdateUserData(string userName, string name, string email, string newPassword)
         {
             string result = string.Empty;
@@ -282,7 +281,6 @@ namespace Events_Project_DB.Model
 
             return result;
         }
-
 
         public string AddFeedback(string username, int eventId, int rate, string comment)
         {
@@ -405,6 +403,302 @@ namespace Events_Project_DB.Model
 
             return bookingHistory;
         }
+
+        public DataTable GetAllEvents()
+        {
+            DataTable dt = new DataTable();
+            string query = @"
+        SELECT 
+            e.Event_ID,
+            e.Name AS Event_Name,
+            e.Price,
+            e.N_Booked,
+            p.Name AS Place_Name,
+            s.Name AS Speaker_Name,
+            o.Name AS Organizer_Name
+        FROM 
+            Event e
+        LEFT JOIN 
+            Event_Place ep ON e.Event_ID = ep.Event_ID
+        LEFT JOIN 
+            Place p ON ep.Place_ID = p.ID
+        LEFT JOIN 
+            Event_Speaker es ON e.Event_ID = es.Event_ID
+        LEFT JOIN 
+            Speaker s ON es.Speaker_ID = s.ID
+        LEFT JOIN 
+            Event_Organizer eo ON e.Event_ID = eo.Event_ID
+        LEFT JOIN 
+            Organizer o ON eo.Username = o.Username";
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException ex)
+            {
+                // Handle exception (optional logging can be done here)
+                Console.WriteLine("SQL Error: " + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return dt;
+        }
+
+        public DataTable ShowAdminInfo(string UserName)
+        {
+            DataTable dt = new DataTable();
+            string query = "SELECT * FROM Admin WHERE user_name = @UserName";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@UserName", UserName);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException ex)
+            {
+                // Handle exception (optional logging can be done here)
+                Console.WriteLine("SQL Error: " + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return dt;
+        }
+
+        public string AddAdmin(string userName, string password, string name, string email)
+        {
+            string query = @"
+        INSERT INTO Admin (user_name, password, name, email)
+        VALUES (@UserName, @Password, @Name, @Email)";
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@UserName", userName);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return "Admin added successfully.";
+                }
+                else
+                {
+                    return "Failed to add admin.";
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Log the exception or handle it as needed
+                return "SQL Error: " + ex.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public string AddOrganizer(string username, string name, string password, string description, string img = "organizer img.jpg")
+        {
+            string query = @"
+        INSERT INTO Organizer (Username, Name, Password, Description, img)
+        VALUES (@Username, @Name, @Password, @Description, @Img)";
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@Description", description);
+                cmd.Parameters.AddWithValue("@Img", img);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return "Organizer added successfully.";
+                }
+                else
+                {
+                    return "Failed to add organizer.";
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Log the exception or handle it as needed
+                return "SQL Error: " + ex.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+        public string AddSpeaker(int ID, string name, string description, string img = "speaker img.jpg")
+        {
+            string query = @"
+        INSERT INTO Speaker (ID, Name, Description, img)
+        VALUES (@ID, @Name, @Description, @Img)";
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@ID", ID);
+
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Description", description);
+                cmd.Parameters.AddWithValue("@Img", img);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return "Speaker added successfully.";
+                }
+                else
+                {
+                    return "Failed to add speaker.";
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Log the exception or handle it as needed
+                return "SQL Error: " + ex.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public string AddEvent(int eventID, string eventName, string description, DateTime startDate, int days, TimeSpan time, decimal price, int nAttendees,string img, int placeID, int speakerID, string organizerUsername)
+        {
+            string query = @"
+        INSERT INTO Event (Event_ID, Name, Description, Start_Date, Days, Time, Price, N_Attendees, N_Booked,img)
+        VALUES (@EventID, @EventName, @Description, @StartDate, @Days, @Time, @Price, @NAttendees, 0,@img);
+
+        INSERT INTO Event_Place (Event_ID, Place_ID) VALUES (@EventID, @PlaceID);
+        INSERT INTO Event_Speaker (Event_ID, Speaker_ID) VALUES (@EventID, @SpeakerID);
+        INSERT INTO Event_Organizer (Event_ID, Username) VALUES (@EventID, @OrganizerUsername);
+
+        SELECT 'Event added successfully.' AS Result;
+    ";
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@EventID", eventID);
+                cmd.Parameters.AddWithValue("@EventName", eventName);
+                cmd.Parameters.AddWithValue("@Description", description);
+                cmd.Parameters.AddWithValue("@StartDate", startDate);
+                cmd.Parameters.AddWithValue("@Days", days);
+                cmd.Parameters.AddWithValue("@Time", time);
+                cmd.Parameters.AddWithValue("@Price", price);
+                cmd.Parameters.AddWithValue("@NAttendees", nAttendees);
+                cmd.Parameters.AddWithValue("@img", img);
+                cmd.Parameters.AddWithValue("@PlaceID", placeID);
+                cmd.Parameters.AddWithValue("@SpeakerID", speakerID);
+                cmd.Parameters.AddWithValue("@OrganizerUsername", organizerUsername);
+
+                string result = cmd.ExecuteScalar().ToString();
+
+                return result;
+            }
+            catch (SqlException ex)
+            {
+                // Log the exception or handle it as needed
+                return "SQL Error: " + ex.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+        public string AddPlace(int ID,string name, string country, string city, string address, string img = "place img.jpg")
+        {
+            string query = @"
+        INSERT INTO Place (ID, Name, Country, City, Address, img)
+        VALUES (@ID, @Name, @Country, @City, @Address, @Img)";
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@ID", ID);
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Country", country);
+                cmd.Parameters.AddWithValue("@City", city);
+                cmd.Parameters.AddWithValue("@Address", address);
+                cmd.Parameters.AddWithValue("@Img", img);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected > 0)
+                {
+                    return "Place added successfully.";
+                }
+                else
+                {
+                    return "Failed to add place.";
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Log the exception or handle it as needed
+                return "SQL Error: " + ex.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+        public DataTable ShowOrganizerInfo(string username)
+        {
+            DataTable dt = new DataTable();
+            string query = "SELECT * FROM Organizer WHERE Username = @Username";
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Username", username);
+                dt.Load(cmd.ExecuteReader());
+            }
+            catch (SqlException ex)
+            {
+                // Handle the exception or log it as needed
+                Console.WriteLine("SQL Error: " + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return dt;
+        }
+
 
     }
 }
