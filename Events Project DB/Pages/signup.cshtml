@@ -4,58 +4,85 @@
     ViewData["Title"] = "Sign Up";
 }
 
-<<style>
 
 
-    .locontainer {
-        max-width: 400px;
-        margin-top: 50px;
-    }
-</style>
 
 
-<div class="locontainer">
-    @if (!string.IsNullOrEmpty(Model.UserError))
-    {
-        <div class="alert alert-danger" role="alert">
-            @Model.UserError
+
+
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+
+
+<br />
+<br />
+<br />
+<br />
+@if (!string.IsNullOrEmpty(Model.UserError))
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.UserError
+    </div>
+}
+<br />
+<br />
+
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="booking p-5">
+            <div class="row g-5 align-items-center">
+                <div class="col-md-6 text-white">
+
+                    <h1 class="text-white mb-4">Sign Up</h1>
+                    <label class="text-right">You Want to Back to Login?! <a class="text-primary" href="login"><u>Click Here.</u></a></label>
+
+                </div>
+                <div class="col-md-6">
+                    <h1 class="text-white mb-4">Login Admin Or Organizer</h1>
+                    <form method="post">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control bg-transparent" id="username" placeholder="Username:" asp-for="@Model.Username" required>
+                                    <label for="username">Username:</label>
+                                    <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control bg-transparent" id="Name" placeholder="Name" asp-for="@Model.Name" required>
+                                    <label for="Name">Name</label>
+                                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control bg-transparent" id="Email" placeholder="Email" asp-for="@Model.Email" required>
+                                    <label for="Email">Email</label>
+                                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control bg-transparent" id="pass" placeholder="Password" asp-for="@Model.Password" required>
+                                    <label for="pass">Password</label>
+                                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button asp-page-handler="submit" class="btn btn-outline-light w-100 py-3" type="submit">Sign Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    }
-
-    <hr>
-
-    <!-- Sign Up Form -->
-    <form id="signupForm" method="post">
-        <h2 class="text-center mb-4">Sign Up</h2>
-        <div class="form-group">
-            <label class="form-label mt-1" for="Usrename">Username:</label>
-            <input class="form-control mb-2" type="text" asp-for="@Model.Username">
-            <span asp-validation-for="@Model.Username" class="text-danger"></span>
-            <span asp-validation-for="Username" class="text-danger"></span>
-
-        </div>
-        <div class="form-group">
-            <label class="form-label mt-1" for="name,">Name:</label>
-            <input class="form-control mb-2" type="text" asp-for="@Model.Name">
-            <span asp-validation-for="@Model.Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label class="form-label mt-1" for="email,">Email:</label>
-            <input class="form-control mb-2" type="email" asp-for="@Model.Email">
-            <span asp-validation-for="@Model.Email" class="text-danger"></span>
-
-        </div>
-        <div class="form-group">
-            <label class="form-label mt-1" for="password,">password:</label>
-            <input class="form-control mb-2" type="password" asp-for="@Model.Password">
-            <span asp-validation-for="@Model.Password" class="text-danger"></span>
-
-        </div>
-        <button asp-page-handler="submit" class="btn btn-success mt-2">Sign Up</button>
-
-    </form>
-
-    <hr>
-    <label class="text-right">Already Have Account?! <a class="text-primary" href="Login SingUp"><u>LogIn.</u></a></label>
-    <hr>
+    </div>
 </div>

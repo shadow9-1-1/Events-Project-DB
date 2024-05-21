@@ -5,53 +5,75 @@
 }
 
 
-<style>
 
-    .locontainer {
-        max-width: 400px;
-        margin-top: 50px;
-    }
-</style>
-<div class="locontainer">
-    @if (!string.IsNullOrEmpty(Model.UserError))
-    {
-        <div class="alert alert-danger" role="alert">
-            @Model.UserError
-        </div>
-    }
-    <!-- Login Form -->
-    <hr>
-    <form id="loginForm" method="post">
-        <h2 class="text-center mb-4">Login Employee</h2>
-        <label class="form-label mt-1" for="Usrename">Login As:</label>
-        <select asp-for="@Model.Select" class="form-select text-black bg-transparent" id="RoomN" aria-label="Login As">
-            <option class="text-black" selected disabled>Select your Choice</option>
-            <option class="text-black" value="Admin">Admin</option>
-            <option class="text-black" value="Organizer">Organizer</option>
-            
-
-
-        </select>
-        <div class="form-group">
-            <label class="form-label mt-1" for="Usrename">Username:</label>
-            <input class="form-control mb-2" type="text" asp-for="@Model.Username">
-            <span asp-validation-for="@Model.Username" class="text-danger"></span>
-
-        </div>
-        <div class="form-group">
-            <label class="form-label mt-1" for="password,">password:</label>
-            <input class="form-control mb-2" type="password" asp-for="@Model.Password">
-            <span asp-validation-for="@Model.Password" class="text-danger"></span>
-
-        </div>
-        <button asp-page-handler="submit" class="btn btn-success mt-2">Login</button>
-
-    </form>
-    <hr />
-
-
-
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
 </div>
+<!-- Spinner End -->
 
 
+<br />
+<br />
+<br />
+<br />
+@if (!string.IsNullOrEmpty(Model.UserError))
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.UserError
+    </div>
+}
+<br />
+<br />
 
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="booking p-5">
+            <div class="row g-5 align-items-center">
+                <div class="col-md-6 text-white">
+
+                    <h1 class="text-white mb-4">Login Admin Or Organizer</h1>
+                    <label class="text-right">You Want to login to normal account?! <a class="text-primary" href="login"><u>Login Here.</u></a></label>
+
+                </div>
+                <div class="col-md-6">
+                    <h1 class="text-white mb-4">Login Admin Or Organizer</h1>
+                    <form method="post">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="col-12 mb-3">
+                                    <div class="form-floating">
+                                        <select asp-for="@Model.Select" class="form-select bg-transparent" id="select1">
+                                            <option selected disabled>Select your Choice</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Organizer">Organizer</option>
+                                        </select>
+                                        <label for="select1">Login As</label>
+                                    </div>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control bg-transparent" id="username" placeholder="Username:" asp-for="@Model.Username" required>
+                                    <label for="username">Username:</label>
+                                    <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control bg-transparent" id="pass" placeholder="Password" asp-for="@Model.Password" required>
+                                    <label for="pass">Password</label>
+                                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button asp-page-handler="submit" class="btn btn-outline-light w-100 py-3" type="submit">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
