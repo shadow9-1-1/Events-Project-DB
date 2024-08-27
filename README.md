@@ -91,27 +91,8 @@ This project is a comprehensive **Events Planner** platform designed to manage v
 3. **Admin**: 
    - Access the admin panel to manage users, events, and feedback across the platform.
 
-## Contributing
-
-We welcome contributions! Please follow the standard fork-branch-PR process:
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Submit a pull request with a clear explanation of your changes.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details.
 
-## Contact
-
-For any inquiries or support, please contact the development team:
-- **Team 5**: 
-  - Mohamed Islam - 202201690
-  - Hossam Nabil - 202202228
-  - Ahmed Wael - 202201415
-
-**Email**: s-ahmed-wael@zewailcity.edu.eg
-
----
-
-This project was developed as part of the CSAI 202 course at Zewail City of Science, Technology, and Innovation【4†source】.
